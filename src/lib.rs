@@ -5,7 +5,7 @@
 //! This crate provides a Rust implementation of the [Polylabel](https://github.com/mapbox/polylabel) algorithm
 //! for finding the optimum position of a polygon label.
 use geo::prelude::*;
-use geo::{Point, Polygon};
+use geo::{Point, Polygon, kernels::HasKernel};
 use num_traits::{Float, FromPrimitive, Signed};
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
@@ -82,7 +82,7 @@ where
 /// Returned value is negative if the point is outside the polygon's exterior ring
 fn signed_distance<T>(x: &T, y: &T, polygon: &Polygon<T>) -> T
 where
-    T: Float,
+    T: Float + HasKernel,
 {
     let point = Point::new(*x, *y);
     let inside = polygon.contains(&point);
@@ -102,7 +102,7 @@ fn add_quad<T>(
     new_height: &T,
     polygon: &Polygon<T>,
 ) where
-    T: Float + Signed,
+    T: Float + Signed + HasKernel,
 {
     let two = T::one() + T::one();
     let centroid_x = cell.centroid.x();
@@ -158,7 +158,7 @@ fn add_quad<T>(
 ///
 pub fn polylabel<T>(polygon: &Polygon<T>, tolerance: &T) -> Result<Point<T>, PolylabelError>
 where
-    T: Float + FromPrimitive + Signed + Sum,
+    T: Float + FromPrimitive + Signed + Sum + HasKernel,
 {
     // special case for degenerate polygons
     if polygon.signed_area() == T::zero() {

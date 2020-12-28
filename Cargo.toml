@@ -36,3 +36,7 @@ lto = true
 [[bench]]
 name = "benchmark"
 harness = false
+
+[patch.crates-io]
+geo = { git = "https://github.com/georust/geo", branch = "mkirk/pub-has-kernel" }
+
