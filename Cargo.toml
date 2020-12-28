@@ -36,3 +36,6 @@ lto = true
 [[bench]]
 name = "benchmark"
 harness = false
+
+[patch.crates-io]
+geo = { github = "https://github.com/georust/geo", branch = "mkirk/geo-float" }

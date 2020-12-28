@@ -5,8 +5,8 @@
 //! This crate provides a Rust implementation of the [Polylabel](https://github.com/mapbox/polylabel) algorithm
 //! for finding the optimum position of a polygon label.
 use geo::prelude::*;
-use geo::{Point, Polygon};
-use num_traits::{Float, FromPrimitive, Signed};
+use geo::{Point, Polygon, Float};
+use num_traits::{FromPrimitive, Signed};
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 use std::iter::Sum;
